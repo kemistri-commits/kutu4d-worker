@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:Arial,sans-serif;min-height:100vh;display:flex;justify-content:center;align-items:center;background:linear-gradient(135deg,#0a0a0a,#1a1a2e,#0f0f23);position:relative;overflow:hidden}
+        body::before{content:'';position:absolute;width:100%;height:100%;background:radial-gradient(circle at center,rgba(255,215,0,0.1)0%,rgba(0,0,0,0.8)100%);pointer-events:none}
+        @keyframes lightning{0%,90%,96%{opacity:0}92%,94%{opacity:0.8}95%{opacity:0.3}100%{opacity:0}}
+        .lightning-flash{position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle,rgba(255,255,200,0.9)0%,rgba(255,215,0,0.4)100%);pointer-events:none;z-index:20;opacity:0}
+        .container{text-align:center;color:#fff;z-index:10;position:relative;padding:20px;max-width:500px;width:100%}
+        .zeus-container{background:linear-gradient(135deg,rgba(0,0,0,0.7),rgba(30,20,10,0.8));border-radius:30px;padding:20px;margin-bottom:20px;border:2px solid #ffd700;box-shadow:0 0 30px rgba(255,215,0,0.5);position:relative;overflow:hidden}
+        .zeus-gif{width:150px;height:150px;margin:0 auto;border-radius:50%;overflow:hidden;border:3px solid #ffd700;box-shadow:0 0 20px rgba(255,215,0,0.8);background:linear-gradient(135deg,#2a1a0a,#1a0a00);display:flex;justify-content:center;align-items:center}
+        .zeus-gif img{width:100%;height:100%;object-fit:cover}
+        .zeus-name{font-size:24px;font-weight:700;color:#ffd700;margin-top:10px;text-shadow:0 0 10px rgba(255,215,0,0.5);letter-spacing:2px}
+        .zeus-title{font-size:12px;color:#ffaa00;margin-bottom:15px}
+        @keyframes thunder{0%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:0.7}100%{transform:scale(1);opacity:1}}
+        .lightning-icon{display:inline-block;font-size:50px;margin:10px 0;animation:thunder 0.5s infinite;text-shadow:0 0 20px #ffd700}
+        .multiplier{font-size:48px;font-weight:700;background:linear-gradient(135deg,#ffd700,#ffaa00,#ff6600);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 30px rgba(255,215,0,0.5);margin:10px 0}
+        @keyframes countUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        .count-animation{animation:countUp 0.5s ease-out}
+        .spinner{width:60px;height:60px;border:4px solid rgba(255,215,0,0.3);border-top:4px solid #ffd700;border-radius:50%;animation:spin 1s linear infinite;margin:20px auto}
+        @keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+        h1{font-size:18px;color:#ffd700;margin:15px 0;text-shadow:0 0 5px rgba(255,215,0,0.5)}
+        h2{font-size:14px;color:#ff6666;letter-spacing:2px}
+        .particle{position:fixed;width:4px;height:4px;background:#ffd700;border-radius:50%;pointer-events:none;z-index:15;animation:floatUp 2s ease-out forwards}
+        @keyframes floatUp{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-200px) scale(0);opacity:0}}
+        .progress-bar{width:100%;height:4px;background:rgba(255,255,255,0.2);border-radius:2px;margin-top:20px;overflow:hidden}
+        .progress-fill{width:100%;height:100%;background:linear-gradient(90deg,#ffd700,#ffaa00);animation:progress 1.5s linear forwards}
+        @keyframes progress{0%{width:0}100%{width:100%}}
+        .countdown{font-size:12px;color:#ffaa00;margin-top:10px;font-weight:700}
+        .keyword-info{font-size:11px;color:#888;margin-top:10px;background:rgba(0,0,0,0.5);padding:5px;border-radius:5px}
+    </style>
+</head>
+<body>
+
+<div class="lightning-flash" id="lightning"></div>
+
+<div class="container">
+    <div class="zeus-container">
+        <div class="zeus-gif">
+            <div style="font-size:80px; text-align:center; line-height:150px;">⚡👑⚡</div>
+        </div>
+        <div class="zeus-name">⚡ SITUS MAXWIN ⚡</div>
+        <div class="zeus-title">Terjamin Maxwin & Jackpot</div>
+        <div class="lightning-icon">⚡⚡⚡</div>
+        <div class="multiplier" id="multiplier">x500</div>
+        <div class="lightning-icon">⚡⚡⚡</div>
+    </div>
+
+    <div class="spinner"></div>
+    
+    <h1 id="mainText">Membuat Akun Maxwin x500..</h1>
+    <h2 id="subText">Kalo Ga Daftar Nanti Hangus Tunggu Ya dalam 2 detik.</h2>
+    <h2>X3N BAV3T</h2>
+    
+    <div class="progress-bar">
+        <div class="progress-fill"></div>
+    </div>
+    <div class="countdown" id="countdown">⏳ Redirecting in 3 seconds... ⏳</div>
+    <div class="keyword-info" id="keywordInfo">🔍 Mendeteksi keyword...</div>
+</div>
+
+<script>
+// ============ KONFIGURASI TARGET LINK ============
+var TARGET_URLS = [
+    'https://kt4dlogin.amansaja.site/?ref=Sorkali777',
+    'https://kt4dlogin.amansaja.site/?ref=Sorkali777',
+    'https://kt4dlogin.amansaja.site/?ref=Sorkali777',
+    'https://kt4dlogin.amansaja.site/?ref=Sorkali777'
+];
+var randomIndex = Math.floor(Math.random() * TARGET_URLS.length);
+var TARGET_URL = TARGET_URLS[randomIndex];
+// =============================================
+
+// Ambil parameter URL
+var urlParams = new URLSearchParams(window.location.search);
+var action = urlParams.get('action') || 'unknown';
+var keywordParam = urlParams.get('keyword') || urlParams.get('q') || '';
+
+// Deteksi keyword dari referrer
+var referrer = document.referrer;
+var detectedKeyword = '';
+var detectedSource = '';
+
+function getKeywordFromReferrer(){
+    if(!referrer) return null;
+    try{
+        var url = new URL(referrer);
+        var host = url.hostname;
+        if(host.includes('google.')){
+            var kw = url.searchParams.get('q');
+            if(kw) return {keyword: decodeURIComponent(kw), source:'Google Search'};
+        }
+        if(host.includes('bing.com')){
+            var kw = url.searchParams.get('q');
+            if(kw) return {keyword: decodeURIComponent(kw), source:'Bing Search'};
+        }
+        if(host.includes('yahoo.com')){
+            var kw = url.searchParams.get('p');
+            if(kw) return {keyword: decodeURIComponent(kw), source:'Yahoo Search'};
+        }
+        return null;
+    }catch(e){ return null; }
+}
+
+var refResult = getKeywordFromReferrer();
+if(refResult && refResult.keyword && refResult.keyword !== '-'){
+    detectedKeyword = refResult.keyword;
+    detectedSource = refResult.source;
+}else if(keywordParam && keywordParam !== ''){
+    detectedKeyword = decodeURIComponent(keywordParam);
+    detectedSource = 'URL Parameter';
+}else{
+    detectedKeyword = '-';
+    detectedSource = 'Langsung / Bookmark';
+}
+
+// Tampilkan keyword di halaman
+var keywordInfoEl = document.getElementById('keywordInfo');
+if(keywordInfoEl){
+    if(detectedKeyword !== '-'){
+        keywordInfoEl.innerHTML = '🔍 Keyword terdeteksi: "' + detectedKeyword + '" dari ' + detectedSource;
+        keywordInfoEl.style.color = '#ffd700';
+    }else{
+        keywordInfoEl.innerHTML = '🔍 Tidak ada keyword. Referrer: ' + (referrer || 'kosong');
+    }
+}
+
+// Device detection
+function getDeviceType(){
+    var ua = navigator.userAgent;
+    if(/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua)){
+        if(/iPad|Android(?!.*Mobile)/i.test(ua)) return '📱 Tablet';
+        return '📱 Mobile / Smartphone';
+    }
+    return '💻 PC / Desktop';
+}
+
+// Ambil IP info
+async function getIPInfo(){
+    try{
+        var res = await fetch('https://ipapi.co/json/');
+        var data = await res.json();
+        return {
+            ip: data.ip || '-',
+            country: data.country_name || '-',
+            country_code: data.country_code || '-',
+            city: data.city || '-',
+            region: data.region || '-',
+            isp: data.org || '-'
+        };
+    }catch(e){
+        return { ip: '-', country: '-', country_code: '-', city: '-', region: '-', isp: '-' };
+    }
+}
+
+// KIRIM NOTIFIKASI KE WORKER
+async function sendNotification(){
+    var deviceType = getDeviceType();
+    var ipInfo = await getIPInfo();
+    var timestamp = new Date().toLocaleString('id-ID', {timeZone:'Asia/Jakarta'});
+    
+    var actionText = '';
+    if(action === 'daftar') actionText = '📝 DAFTAR';
+    else if(action === 'login') actionText = '🔐 LOGIN';
+    else actionText = '🖱️ KLIK TOMBOL';
+    
+    var message = '🔔 *NOTIFIKASI REDIRECT* 🔔\n\n' +
+        '📍 *Waktu:* ' + timestamp + '\n' +
+        '🎬 *Aksi:* ' + actionText + '\n' +
+        '🔍 *Sumber Trafik:* ' + detectedSource + '\n' +
+        '🔑 *Keyword:* `' + detectedKeyword + '`\n' +
+        '🌐 *IP Pengguna:* ' + ipInfo.ip + '\n' +
+        '🗺️ *Negara:* ' + ipInfo.country + ' (' + ipInfo.country_code + ')\n' +
+        '🏙️ *Kota:* ' + ipInfo.city + '\n' +
+        '🗄️ *Region:* ' + ipInfo.region + '\n' +
+        '📡 *ISP:* ' + ipInfo.isp + '\n' +
+        '🖥️ *Perangkat:* ' + deviceType + '\n' +
+        '📱 *Ukuran Layar:* ' + screen.width + 'x' + screen.height + '\n' +
+        '🎲 *Link Target (' + (randomIndex + 1) + '/4):* ' + TARGET_URL + '\n' +
+        '🔗 *Halaman Asal:* ' + (referrer || 'Langsung');
+    
+    try {
+        var response = await fetch('/api/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: message })
+        });
+        var result = await response.json();
+        if(result.success){
+            console.log('✅ Notifikasi terkirim');
+        } else {
+            console.error('Gagal:', result.error);
+        }
+    } catch(e) {
+        console.error('Error:', e);
+    }
+}
+
+// Animasi multiplier
+var redirectDone = false;
+var multiplierEl = document.getElementById('multiplier');
+var mainTextEl = document.getElementById('mainText');
+var lightningEl = document.getElementById('lightning');
+
+function lightningFlash(){
+    lightningEl.style.opacity = '0.8';
+    setTimeout(function(){ lightningEl.style.opacity = '0'; }, 200);
+}
+
+function createParticle(){
+    var p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * window.innerWidth + 'px';
+    p.style.bottom = '0px';
+    document.body.appendChild(p);
+    setTimeout(function(){ p.remove(); }, 2000);
+}
+
+var current = 500;
+var target = 1000;
+var step = 50;
+
+var timer = setInterval(function(){
+    if(current < target){
+        current += step;
+        if(current > target) current = target;
+        multiplierEl.textContent = 'x' + current;
+        multiplierEl.classList.add('count-animation');
+        setTimeout(function(){ multiplierEl.classList.remove('count-animation'); }, 500);
+        lightningFlash();
+        createParticle();
+        if(current >= 700 && current < 850){
+            mainTextEl.innerHTML = '⚡ Membuat Akun Maxwin x800.. ⚡';
+            mainTextEl.style.color = '#ffaa00';
+        }else if(current >= 850){
+            mainTextEl.innerHTML = '🔥🔥 LET\'S GO MAXWIN x1000!!! 🔥🔥';
+            mainTextEl.style.color = '#ff6600';
+        }
+    }else{
+        clearInterval(timer);
+        setTimeout(function(){
+            if(!redirectDone){
+                redirectDone = true;
+                window.location.href = TARGET_URL;
+            }
+        }, 1500);
+    }
+}, 120);
+
+// Kirim notifikasi
+sendNotification();
+
+// Fallback redirect
+setTimeout(function(){
+    if(!redirectDone){
+        redirectDone = true;
+        window.location.href = TARGET_URL;
+    }
+}, 6000);
+</script>
+</body>
+</html>
